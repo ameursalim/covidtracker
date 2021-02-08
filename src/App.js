@@ -7,9 +7,9 @@ import Footer from "./Components/Footer";
 
 function App() {
   return (
-    <div>
-      <div className="Left_side">
-        <h1>Covid App</h1>
+    <div className="flex justify-between ">
+      <div className="bg-current w-5/6">
+        <h1 className="text-xl font-medium text-white ">Covid App</h1>
         <CardBox />
         <Map />
         <Footer />
