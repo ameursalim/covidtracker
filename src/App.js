@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import CardBox from "./Components/CardBox";
+import Map from "./Components/Map";
+import TableInfo from "./Components/TableInfo";
+import Chart from "./Components/Chart";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="Left_side">
+        <h1>Covid App</h1>
+        <CardBox />
+        <Map />
+        <Footer />
+      </div>
+      <div className="Sidebar">
+        <TableInfo />
+        <Chart />
+      </div>
     </div>
   );
 }
