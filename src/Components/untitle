@@ -1,0 +1,7 @@
+mapbox://styles/salimameur/ckky7y6qx19fk17od79pe7y1e
+
+pk.eyJ1Ijoic2FsaW1hbWV1ciIsImEiOiJja2t5ODk2cW4ybnE0MzBxbmh0aDBxMXQzIn0.366hSV6GvCyPSE00K2YJQA
+
+https//api.mapbox.com/styles/v1/salimameur/ckky7y6qx19fk17od79pe7y1e/tiles/{tilesize}/{z}/{x}/{y}{@2x}
+
+https//api.mapbox.com/styles/v1/salimameur/ckky7y6qx19fk17od79pe7y1e/tiles/256/{z}/{x}/{y}@2x?acces_token=pk.eyJ1Ijoic2FsaW1hbWV1ciIsImEiOiJja2t5ODk2cW4ybnE0MzBxbmh0aDBxMXQzIn0.366hSV6GvCyPSE00K2YJQA

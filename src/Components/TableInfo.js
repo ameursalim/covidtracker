@@ -20,11 +20,15 @@ function TableInfo({ countriesData }) {
         </TableHead>
         {countriesData.map(({ country, cases, countryInfo }) => (
           <TableBody>
-            <img
-              src={countryInfo.flag}
-              alt={country}
-              className="w-10 h-10 rounded-full mx-auto p-1 mt-2 ml-4 "
-            />
+            <TableCell>
+              {" "}
+              <img
+                src={countryInfo.flag}
+                alt={country}
+                className="w-7 h-7 rounded-full  "
+              />
+            </TableCell>
+
             <TableCell>{country}</TableCell>
             <TableCell>{cases}</TableCell>
           </TableBody>

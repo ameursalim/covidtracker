@@ -6,12 +6,24 @@ import Chart from "./Components/Chart";
 import Footer from "./Components/Footer";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
 import { AccessAlarm, ThreeDRotation } from "@material-ui/icons";
+import { sortData } from "./sortData";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("wordwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [countriesData, setCountriesData] = useState([]);
+  const [center, setCenter] = useState({ lat: 34.366, lng: -21.798 });
+  const [zoom, setZoom] = useState(2);
+
+  useEffect(() => {
+    fetch("https://disease.sh/v3/covid-19/all")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountryInfo(data);
+      });
+  }, []);
 
   useEffect(() => {
     const getCountriesData = async () => {
@@ -22,19 +34,13 @@ function App() {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
+
+          const sortedData = sortData(data);
           setCountries(countries);
-          setCountriesData(data);
+          setCountriesData(sortedData);
         });
     };
     getCountriesData();
-  }, []);
-
-  useEffect(() => {
-    fetch("https://disease.sh/v3/covid-19/all")
-      .then((response) => response.json())
-      .then((data) => {
-        setCountryInfo(data);
-      });
   }, []);
 
   const onCountryChange = async (event) => {
@@ -52,6 +58,9 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
+
+        setCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setZoom(4);
       });
   };
 
@@ -114,7 +123,9 @@ function App() {
             cases={127663}
           />
         </div>
-        <Map />
+
+        <Map center={center} zoom={zoom} />
+
         <Footer />
       </div>
       <div className="Sidebar w-1/4 text-white bg-gray-800 p-6 ">
