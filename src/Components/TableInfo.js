@@ -9,7 +9,7 @@ import React from "react";
 
 function TableInfo({ countriesData }) {
   return (
-    <TableContainer color="text.primary">
+    <TableContainer color="text.primary" style={{ maxHeight: 500 }}>
       <Table>
         <TableHead>
           <TableCell align="right" color="text.primary">

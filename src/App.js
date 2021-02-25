@@ -5,17 +5,21 @@ import TableInfo from "./Components/TableInfo";
 import Chart from "./Components/Chart";
 import Footer from "./Components/Footer";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
-import { AccessAlarm, ThreeDRotation } from "@material-ui/icons";
-import { sortData } from "./sortData";
+
+import { sortData, prettyPrintStat } from "./utils";
 import "leaflet/dist/leaflet.css";
+import { RiVirusFill } from "react-icons/ri";
+import { GiDeathSkull } from "react-icons/gi";
+import { FaBiohazard, FaBriefcaseMedical } from "react-icons/fa";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("wordwide");
+  const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [countriesData, setCountriesData] = useState([]);
   const [center, setCenter] = useState({ lat: 34.366, lng: -21.798 });
-  const [zoom, setZoom] = useState(2);
+  const [zoom, setZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([]);
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -38,6 +42,7 @@ function App() {
           const sortedData = sortData(data);
           setCountries(countries);
           setCountriesData(sortedData);
+          setMapCountries(data);
         });
     };
     getCountriesData();
@@ -49,7 +54,7 @@ function App() {
     setCountry(countryCode);
 
     const url =
-      countryCode === "wordwide"
+      countryCode === "worldwide"
         ? "https://disease.sh/v3/covid-19/all"
         : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
 
@@ -58,7 +63,6 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
-
         setCenter([data.countryInfo.lat, data.countryInfo.long]);
         setZoom(4);
       });
@@ -67,7 +71,10 @@ function App() {
   console.log("countruy info", countryInfo);
   return (
     <div className="flex justify-evenly h-screen ">
-      <div className=" LeftSide w-3/4 bg-gray-700 p-6">
+      <div
+        className=" LeftSide w-3/4 bg-gray-700 p-6"
+        style={{ backgroundColor: "#282b2e" }}
+      >
         <div className="header flex justify-between mb-10">
           <div className="title flex flex-col">
             <h1 className="text-2xl font-medium text-white ">
@@ -81,8 +88,8 @@ function App() {
               value={country}
               onChange={onCountryChange}
             >
-              <MenuItem value={country} className="text-white">
-                wordwide
+              <MenuItem value="worldwide" className="text-white">
+                worldwide
               </MenuItem>
               {countries.map((country) => (
                 <MenuItem value={country.value}>{country.name}</MenuItem>
@@ -94,41 +101,48 @@ function App() {
         <div className="card flex flex-row justify-between p-8 ">
           <CardBox
             title="Infected"
-            total={countryInfo.cases}
-            icon={<AccessAlarm />}
-            cases={countryInfo.todayCases}
+            total={prettyPrintStat(countryInfo.cases)}
+            icon={<FaBiohazard size={30} />}
+            cases={prettyPrintStat(countryInfo.todayCases)}
+            color="#ba3131"
           />
           <CardBox
             title="Active"
-            total={countryInfo.active}
-            icon={<ThreeDRotation />}
-            cases={countryInfo.active}
+            total={prettyPrintStat(countryInfo.active)}
+            icon={<RiVirusFill size={30} />}
+            cases={prettyPrintStat(countryInfo.activePerOneMillion)}
+            color="#f5c778"
           />
           <CardBox
             title="Recovred"
-            total={countryInfo.recovered}
-            icon={<AccessAlarm />}
-            cases={countryInfo.todayRecovered}
+            total={prettyPrintStat(countryInfo.recovered)}
+            icon={<FaBriefcaseMedical size={30} />}
+            cases={prettyPrintStat(countryInfo.todayRecovered)}
+            color="#4f4e53"
           />
           <CardBox
             title="Death"
-            total={countryInfo.deaths}
-            icon={<ThreeDRotation />}
-            cases={countryInfo.todayDeaths}
+            total={prettyPrintStat(countryInfo.deaths)}
+            icon={<GiDeathSkull size={30} />}
+            cases={prettyPrintStat(countryInfo.todayDeaths)}
+            color="#5cc1ac"
           />
-          <CardBox
+          {/* <CardBox
             title="Vaccin"
             total={2000}
             icon={<ThreeDRotation />}
             cases={127663}
-          />
+          /> */}
         </div>
 
-        <Map center={center} zoom={zoom} />
+        <Map countries={mapCountries} center={center} zoom={zoom} />
 
         <Footer />
       </div>
-      <div className="Sidebar w-1/4 text-white bg-gray-800 p-6 ">
+      <div
+        className="Sidebar w-1/4 text-white  p-6 "
+        style={{ backgroundColor: "#222529" }}
+      >
         <h1 className="text-xl font-medium text-white ">Cases Info</h1>
         <TableInfo countriesData={countriesData} />
         <Chart />
