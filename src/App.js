@@ -76,11 +76,15 @@ function App() {
         style={{ backgroundColor: "#282b2e" }}
       >
         <div className="header flex justify-between mb-10">
-          <div className="title flex flex-col">
-            <h1 className="text-2xl font-medium text-white ">
-              Coronavirus COVID-19
-            </h1>
-            <h2 className="text-l font-medium text-white ">Global Cases</h2>
+          <div className="flex flex-row text-white text-2xl ml-4 ">
+            <RiVirusFill />
+
+            <div className="title flex flex-col">
+              <h1 className="text-2xl font-medium text-white ">
+                Coronavirus COVID-19
+              </h1>
+              <h2 className="text-l font-small text-gray-500 ">Global Cases</h2>
+            </div>
           </div>
           <FormControl className="dropdown ">
             <Select
@@ -88,7 +92,7 @@ function App() {
               value={country}
               onChange={onCountryChange}
             >
-              <MenuItem value="worldwide" className="text-white">
+              <MenuItem value="worldwide" style={{ color: "white" }}>
                 worldwide
               </MenuItem>
               {countries.map((country) => (
@@ -145,6 +149,9 @@ function App() {
       >
         <h1 className="text-xl font-medium text-white ">Cases Info</h1>
         <TableInfo countriesData={countriesData} />
+        <h1 className="text-2xl font-medium text-white ">
+          Last worldwide Cases
+        </h1>
         <Chart />
       </div>
     </div>
