@@ -85,15 +85,13 @@ function App() {
               <h2 className="text-l font-small text-gray-500 ">Global Cases</h2>
             </div>
           </div>
-          <FormControl className="dropdown ">
+          <FormControl className="dropdown">
             <Select
               variant="outlined"
               value={country}
               onChange={onCountryChange}
             >
-              <MenuItem value="worldwide" style={{ color: "white" }}>
-                worldwide
-              </MenuItem>
+              <MenuItem value={country}>worldwide</MenuItem>
               {countries.map((country) => (
                 <MenuItem value={country.value}>{country.name}</MenuItem>
               ))}
@@ -148,7 +146,7 @@ function App() {
       >
         <h1 className="text-xl font-medium text-white ">Cases Info</h1>
         <TableInfo countriesData={countriesData} />
-        <h1 className="text-2xl font-medium text-white ">
+        <h1 className="text-2xl font-medium text-white  mt-20 mb-12">
           Last worldwide Cases
         </h1>
         <Chart />
