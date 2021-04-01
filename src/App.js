@@ -5,7 +5,6 @@ import TableInfo from "./Components/TableInfo";
 import Chart from "./Components/Chart";
 import Footer from "./Components/Footer";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
-
 import { sortData, prettyPrintStat } from "./utils";
 import "leaflet/dist/leaflet.css";
 import { RiVirusFill } from "react-icons/ri";
