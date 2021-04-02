@@ -6,6 +6,7 @@ import {
   TableBody,
 } from "@material-ui/core";
 import React from "react";
+import { prettyPrintStat } from "../utils";
 
 function TableInfo({ countriesData }) {
   return (
@@ -19,7 +20,7 @@ function TableInfo({ countriesData }) {
             Country Name
           </TableCell>
           <TableCell align="right" style={{ color: "white" }}>
-            Number of Cases
+            Cases
           </TableCell>
         </TableHead>
         {countriesData.map(({ country, cases, countryInfo }) => (
@@ -34,32 +35,13 @@ function TableInfo({ countriesData }) {
             </TableCell>
 
             <TableCell style={{ color: "white" }}>{country}</TableCell>
-            <TableCell style={{ color: "white" }}>{cases}</TableCell>
+            <TableCell style={{ color: "white" }}>
+              {prettyPrintStat(cases)}
+            </TableCell>
           </TableBody>
         ))}
       </Table>
     </TableContainer>
-    // <div>
-    //   {countriesData.map(({ country, cases, countryInfo }) => (
-    //     <table>
-    //       <tbody className="h-6 overflow-scroll">
-    //         <div>
-    //           <tr>
-    //             <td>
-    //               <img
-    //                 src={countryInfo.flag}
-    //                 alt={country}
-    //                 className="w-7 h-7 rounded-full  "
-    //               />
-    //             </td>
-    //             <td>{country}</td>
-    //             <td>{cases}</td>
-    //           </tr>
-    //         </div>
-    //       </tbody>
-    //     </table>
-    //   ))}
-    // </div>
   );
 }
 

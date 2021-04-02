@@ -38,7 +38,7 @@ const options = {
         },
         ticks: {
           callback: function (value) {
-            return numeral(value).format("100a");
+            return numeral(value).format("10a");
           },
         },
       },
